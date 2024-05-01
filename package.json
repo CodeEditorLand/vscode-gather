@@ -113,20 +113,20 @@
 		"onNotebook:jupyter-notebook"
 	],
 	"dependencies": {
-		"@msrvida/python-program-analysis": "^0.5.4",
-		"fs-extra": "^11.1.1",
-		"uuid": "^3.4.0"
+		"@msrvida/python-program-analysis": "0.5.4",
+		"fs-extra": "11.1.1",
+		"uuid": "3.4.0"
 	},
 	"devDependencies": {
 		"@playform/build": "0.0.7",
 		"@playform/document": "0.0.6",
-		"@types/fs-extra": "^11.0.1",
-		"@types/glob": "^8.1.0",
-		"@types/node": "^20.4.0",
-		"@types/uuid": "^3.4.10",
-		"glob": "^10.3.1",
-		"ts-loader": "^9.4.4",
-		"typemoq": "^2.1.0"
+		"@types/fs-extra": "11.0.1",
+		"@types/glob": "8.1.0",
+		"@types/node": "20.4.0",
+		"@types/uuid": "3.4.10",
+		"glob": "10.3.1",
+		"ts-loader": "9.4.4",
+		"typemoq": "2.1.0"
 	},
 	"extensionDependencies": [
 		"ms-toolsai.jupyter"
