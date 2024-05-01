@@ -1,19 +1,39 @@
 {
-	"activationEvents": [
-		"onLanguage:python",
-		"onLanguage:jupyter",
-		"onNotebook:jupyter-notebook"
+	"name": "gather",
+	"displayName": "Gather",
+	"version": "0.0.1",
+	"private": false,
+	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
+	"keywords": [
+		"land"
 	],
-	"author": {
-		"email": "Land@PlayForm.Cloud",
-		"name": "🌆 — Land —",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandGather#readme",
 	"bugs": {
 		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandGather/issues"
 	},
-	"capabilities": {
-		"virtualWorkspaces": true
+	"repository": {
+		"type": "git",
+		"url": "git+HTTPS://github.com/CodeEditorLand/LandGather.git"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"author": {
+		"name": "🌆 — Land —",
+		"email": "Land@PlayForm.Cloud",
+		"url": "HTTPS://Land.PlayForm.Cloud"
+	},
+	"type": "module",
+	"main": "./out/extension.js",
+	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
+		"build": "webpack --mode production",
+		"compile": "tsc -watch -p ./",
+		"download-api": "vscode-dts dev",
+		"postdownload-api": "vscode-dts main",
+		"npm-auth": "vsts-npm-auth -config .npmrc",
+		"prepublishOnly": "Build 'Source/**/*.ts'",
+		"vsix": "npm run webpack && vsce package",
+		"webpack": "webpack --mode development",
+		"webpack-watch": "webpack --mode development --watch"
 	},
 	"contributes": {
 		"commands": [
@@ -87,12 +107,16 @@
 			]
 		}
 	},
+	"activationEvents": [
+		"onLanguage:python",
+		"onLanguage:jupyter",
+		"onNotebook:jupyter-notebook"
+	],
 	"dependencies": {
 		"@msrvida/python-program-analysis": "0.5.4",
 		"fs-extra": "11.1.1",
 		"uuid": "3.4.0"
 	},
-	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
 	"devDependencies": {
 		"@playform/build": "0.0.7",
 		"@playform/document": "0.0.6",
@@ -104,42 +128,18 @@
 		"ts-loader": "9.4.4",
 		"typemoq": "2.1.0"
 	},
-	"displayName": "Gather",
-	"enabledApiProposals": [
-		"notebookCellExecutionState"
-	],
 	"extensionDependencies": [
 		"ms-toolsai.jupyter"
 	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandGather#readme",
-	"icon": "icon.png",
-	"keywords": [
-		"land"
-	],
-	"license": "SEE LICENSE IN LICENSE",
-	"main": "./out/extension.js",
-	"name": "gather",
-	"preview": true,
-	"private": false,
 	"publishConfig": {
 		"access": "public"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/LandGather.git"
+	"icon": "icon.png",
+	"preview": true,
+	"capabilities": {
+		"virtualWorkspaces": true
 	},
-	"scripts": {
-		"Document": "Document 'Source/**/*.ts'",
-		"build": "webpack --mode production",
-		"compile": "tsc -watch -p ./",
-		"download-api": "vscode-dts dev",
-		"npm-auth": "vsts-npm-auth -config .npmrc",
-		"postdownload-api": "vscode-dts main",
-		"prepublishOnly": "Build 'Source/**/*.ts'",
-		"vsix": "npm run webpack && vsce package",
-		"webpack": "webpack --mode development",
-		"webpack-watch": "webpack --mode development --watch"
-	},
-	"type": "module",
-	"version": "0.0.1"
+	"enabledApiProposals": [
+		"notebookCellExecutionState"
+	]
 }
