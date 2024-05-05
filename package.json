@@ -4,30 +4,33 @@
 	"version": "0.0.1",
 	"private": false,
 	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
-	"homepage": "https://github.com/CodeEditorLand/Foundation#readme",
+	"keywords": [
+		"land"
+	],
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandGather#readme",
 	"bugs": {
-		"url": "https://github.com/CodeEditorLand/Foundation/issues"
+		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandGather/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/CodeEditorLand/Foundation.git"
+		"url": "git+HTTPS://github.com/CodeEditorLand/LandGather.git"
 	},
 	"license": "SEE LICENSE IN LICENSE",
 	"author": {
-		"name": "Playform",
-		"email": "Hello@Playform.Cloud",
-		"url": "https://playform.cloud"
+		"name": "🌆 — Land —",
+		"email": "Land@PlayForm.Cloud",
+		"url": "HTTPS://Land.PlayForm.Cloud"
 	},
 	"type": "module",
 	"main": "./out/extension.js",
 	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
 		"build": "webpack --mode production",
 		"compile": "tsc -watch -p ./",
 		"download-api": "vscode-dts dev",
 		"postdownload-api": "vscode-dts main",
-		"postinstall": "npm run download-api && node ./scripts/postInstall.js",
 		"npm-auth": "vsts-npm-auth -config .npmrc",
-		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
+		"prepublishOnly": "Build 'Source/**/*.ts'",
 		"vsix": "npm run webpack && vsce package",
 		"webpack": "webpack --mode development",
 		"webpack-watch": "webpack --mode development --watch"
@@ -111,28 +114,19 @@
 	],
 	"dependencies": {
 		"@msrvida/python-program-analysis": "0.5.4",
-		"@vscode/extension-telemetry": "0.8.4",
 		"fs-extra": "11.1.1",
 		"uuid": "3.4.0"
 	},
 	"devDependencies": {
+		"@playform/build": "0.0.7",
+		"@playform/document": "0.0.6",
 		"@types/fs-extra": "11.0.1",
 		"@types/glob": "8.1.0",
-		"@types/mocha": "10.0.1",
 		"@types/node": "20.4.0",
 		"@types/uuid": "3.4.10",
-		"clean-webpack-plugin": "4.0.0",
 		"glob": "10.3.1",
-		"mocha": "10.2.0",
 		"ts-loader": "9.4.4",
-		"ts-node": "10.9.1",
-		"typemoq": "2.1.0",
-		"typescript": "5.1.6",
-		"typescript-esbuild": "0.4.5",
-		"vscode-dts": "0.3.3",
-		"vscode-test": "1.6.1",
-		"webpack": "5.88.2",
-		"webpack-cli": "5.1.4"
+		"typemoq": "2.1.0"
 	},
 	"extensionDependencies": [
 		"ms-toolsai.jupyter"
