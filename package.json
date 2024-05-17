@@ -1,27 +1,7 @@
 {
 	"name": "gather",
 	"displayName": "Gather",
-	"version": "0.0.1",
-	"private": false,
 	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
-	"keywords": [
-		"land"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandGather#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandGather/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/LandGather.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🛬 Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
-	"type": "module",
 	"main": "./out/extension.js",
 	"scripts": {
 		"Document": "Document 'Source/**/*.ts'",
@@ -119,7 +99,6 @@
 	},
 	"devDependencies": {
 		"@playform/build": "0.0.7",
-		"@playform/document": "0.0.6",
 		"@types/fs-extra": "11.0.1",
 		"@types/glob": "8.1.0",
 		"@types/node": "20.4.0",
@@ -131,9 +110,6 @@
 	"extensionDependencies": [
 		"ms-toolsai.jupyter"
 	],
-	"publishConfig": {
-		"access": "public"
-	},
 	"icon": "icon.png",
 	"preview": true,
 	"capabilities": {
