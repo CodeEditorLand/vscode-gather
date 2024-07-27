@@ -6,19 +6,19 @@ const fs = require("fs-extra");
 const path = require("path");
 
 function updateSpecFiles() {
-  console.log(`Updating spec files...`);
-  var sourceDir = path.join("resources", "specs");
-  var destDir = path.join(
-    "node_modules",
-    "@msrvida",
-    "python-program-analysis",
-    "dist",
-    "es5",
-    "specs",
-    "specs"
-  );
-  fs.mkdirSync(destDir, { recursive: true });
-  fs.copySync(sourceDir, destDir);
+	console.log(`Updating spec files...`);
+	var sourceDir = path.join("resources", "specs");
+	var destDir = path.join(
+		"node_modules",
+		"@msrvida",
+		"python-program-analysis",
+		"dist",
+		"es5",
+		"specs",
+		"specs",
+	);
+	fs.mkdirSync(destDir, { recursive: true });
+	fs.copySync(sourceDir, destDir);
 }
 
 updateSpecFiles();
