@@ -80,9 +80,9 @@
 		}
 	},
 	"dependencies": {
-		"@msrvida/python-program-analysis": "0.5.4",
+		"@msrvida/python-program-analysis": "0.4.1",
 		"fs-extra": "11.1.1",
-		"uuid": "3.4.0"
+		"uuid": "10.0.0"
 	},
 	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
 	"devDependencies": {
