@@ -80,19 +80,19 @@
 		}
 	},
 	"dependencies": {
-		"@msrvida/python-program-analysis": "^0.5.4",
-		"fs-extra": "^11.1.1",
-		"uuid": "^3.4.0"
+		"@msrvida/python-program-analysis": "0.5.4",
+		"fs-extra": "11.1.1",
+		"uuid": "3.4.0"
 	},
 	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
 	"devDependencies": {
-		"@types/fs-extra": "^11.0.1",
-		"@types/glob": "^8.1.0",
-		"@types/node": "^20.4.0",
-		"@types/uuid": "^3.4.10",
-		"glob": "^10.3.1",
-		"ts-loader": "^9.4.4",
-		"typemoq": "^2.1.0"
+		"@types/fs-extra": "11.0.1",
+		"@types/glob": "8.1.0",
+		"@types/node": "20.4.0",
+		"@types/uuid": "3.4.10",
+		"glob": "10.3.1",
+		"ts-loader": "9.4.4",
+		"typemoq": "2.1.0"
 	},
 	"displayName": "Gather",
 	"enabledApiProposals": [
