@@ -1,17 +1,11 @@
 {
-	"name": "gather",
-	"displayName": "Gather",
-	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
-	"main": "./out/extension.js",
-	"scripts": {
-		"build": "webpack --mode production",
-		"compile": "tsc -watch -p ./",
-		"download-api": "vscode-dts dev",
-		"postdownload-api": "vscode-dts main",
-		"npm-auth": "vsts-npm-auth -config .npmrc",
-		"vsix": "npm run webpack && vsce package",
-		"webpack": "webpack --mode development",
-		"webpack-watch": "webpack --mode development --watch"
+	"activationEvents": [
+		"onLanguage:python",
+		"onLanguage:jupyter",
+		"onNotebook:jupyter-notebook"
+	],
+	"capabilities": {
+		"virtualWorkspaces": true
 	},
 	"contributes": {
 		"commands": [
@@ -85,16 +79,12 @@
 			]
 		}
 	},
-	"activationEvents": [
-		"onLanguage:python",
-		"onLanguage:jupyter",
-		"onNotebook:jupyter-notebook"
-	],
 	"dependencies": {
 		"@msrvida/python-program-analysis": "0.5.4",
 		"fs-extra": "11.1.1",
 		"uuid": "3.4.0"
 	},
+	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
 	"devDependencies": {
 		"@types/fs-extra": "11.0.1",
 		"@types/glob": "8.1.0",
@@ -104,15 +94,25 @@
 		"ts-loader": "9.4.4",
 		"typemoq": "2.1.0"
 	},
+	"displayName": "Gather",
+	"enabledApiProposals": [
+		"notebookCellExecutionState"
+	],
 	"extensionDependencies": [
 		"ms-toolsai.jupyter"
 	],
 	"icon": "icon.png",
+	"main": "./out/extension.js",
+	"name": "gather",
 	"preview": true,
-	"capabilities": {
-		"virtualWorkspaces": true
-	},
-	"enabledApiProposals": [
-		"notebookCellExecutionState"
-	]
+	"scripts": {
+		"build": "webpack --mode production",
+		"compile": "tsc -watch -p ./",
+		"download-api": "vscode-dts dev",
+		"npm-auth": "vsts-npm-auth -config .npmrc",
+		"postdownload-api": "vscode-dts main",
+		"vsix": "npm run webpack && vsce package",
+		"webpack": "webpack --mode development",
+		"webpack-watch": "webpack --mode development --watch"
+	}
 }
