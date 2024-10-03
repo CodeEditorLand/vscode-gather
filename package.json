@@ -1,159 +1,118 @@
 {
-  "name": "gather",
-  "displayName": "Gather",
-  "description": "Adds gather functionality in the Python language to the Jupyter Extension",
-  "version": "2022.3.2",
-  "publisher": "ms-python",
-  "preview": true,
-  "author": {
-    "name": "Microsoft Corporation"
-  },
-  "license": "LICENSE",
-  "homepage": "https://github.com/microsoft/vscode-jupyter",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/microsoft/vscode-gather"
-  },
-  "bugs": {
-    "url": "https://github.com/microsoft/vscode-jupyter/issues"
-  },
-  "engines": {
-    "vscode": "^1.68.0"
-  },
-  "categories": [
-    "Programming Languages",
-    "Other",
-    "Extension Packs",
-    "Data Science",
-    "Machine Learning",
-    "Notebooks"
-  ],
-  "icon": "icon.png",
-  "activationEvents": [
-    "onLanguage:python",
-    "onLanguage:jupyter",
-    "onNotebook:jupyter-notebook"
-  ],
-  "main": "./out/extension.js",
-  "capabilities": {
-    "virtualWorkspaces": true
-  },
-  "contributes": {
-    "commands": [
-      {
-        "command": "gather.gatherCodeNativeNotebook",
-        "title": "Gather code",
-        "icon": "$(gather)",
-        "category": "Gather"
-      },
-      {
-        "command": "gather.smartSelect",
-        "title": "Smart Select",
-        "icon": "$(wand)",
-        "category": "Gather"
-      }
-    ],
-    "menus": {
-      "commandPalette": [
-        {
-          "command": "gather.gatherCodeNativeNotebook",
-          "title": "Gather code",
-          "when": "false",
-          "category": "Gather"
-        },
-        {
-          "command": "gather.smartSelect",
-          "title": "Smart Select",
-          "when": "false",
-          "category": "Gather"
-        }
-      ],
-      "notebook/cell/title": [
-        {
-          "command": "gather.gatherCodeNativeNotebook",
-          "when": "notebookType == jupyter-notebook && notebookCellType == code",
-          "group": "inline/cell@2",
-          "category": "Gather"
-        },
-        {
-          "command": "gather.smartSelect",
-          "when": "notebookType == jupyter-notebookxxx && notebookCellType == code",
-          "group": "inline/cell@2",
-          "category": "Gather"
-        }
-      ],
-      "interactive/cell/title": [
-        {
-          "command": "gather.gatherCodeNativeNotebook",
-          "when": "notebookType == interactive && notebookCellType == code",
-          "group": "inline@2",
-          "category": "Gather"
-        }
-      ]
-    },
-    "configuration": {
-      "type": "object",
-      "title": "Gather",
-      "properties": {
-        "gather.gatherToScript": {
-          "type": "boolean",
-          "default": false,
-          "description": "Gather code to a python script rather than a notebook.",
-          "scope": "resource"
-        },
-        "gather.gatherSpecPath": {
-          "type": "string",
-          "default": "",
-          "description": "This setting specifies a folder that contains additional or replacement spec files used for analysis.",
-          "scope": "resource"
-        }
-      }
-    }
-  },
-  "extensionDependencies": [
-    "ms-toolsai.jupyter"
-  ],
-  "enabledApiProposals": [
-    "notebookCellExecutionState"
-  ],
-  "scripts": {
-    "build": "webpack --mode production",
-    "webpack": "webpack --mode development",
-    "webpack-watch": "webpack --mode development --watch",
-    "lint": "eslint src --ext ts",
-    "compile": "tsc -watch -p ./",
-    "vsix": "npm run webpack && vsce package",
-    "npm-auth": "vsts-npm-auth -config .npmrc",
-    "test": "mocha --config ./src/test/.mocha.config.json",
-    "download-api": "vscode-dts dev",
-    "postdownload-api": "vscode-dts main",
-    "postinstall": "npm run download-api && node ./scripts/postInstall.js"
-  },
-  "dependencies": {
-    "@msrvida/python-program-analysis": "^0.5.4",
-    "@vscode/extension-telemetry": "^0.8.4",
-    "fs-extra": "^11.1.1",
-    "uuid": "^3.4.0"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^11.0.1",
-    "@types/glob": "^8.1.0",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^20.4.0",
-    "@types/uuid": "^3.4.10",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "eslint": "^8.44.0",
-    "glob": "^10.3.1",
-    "mocha": "^10.2.0",
-    "ts-loader": "^9.4.4",
-    "ts-node": "^10.9.1",
-    "typemoq": "^2.1.0",
-    "typescript": "^5.1.6",
-    "vscode-dts": "^0.3.3",
-    "vscode-test": "^1.6.1",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
-  }
+	"activationEvents": [
+		"onLanguage:python",
+		"onLanguage:jupyter",
+		"onNotebook:jupyter-notebook"
+	],
+	"capabilities": {
+		"virtualWorkspaces": true
+	},
+	"contributes": {
+		"commands": [
+			{
+				"category": "Gather",
+				"command": "gather.gatherCodeNativeNotebook",
+				"icon": "$(gather)",
+				"title": "Gather code"
+			},
+			{
+				"category": "Gather",
+				"command": "gather.smartSelect",
+				"icon": "$(wand)",
+				"title": "Smart Select"
+			}
+		],
+		"configuration": {
+			"properties": {
+				"gather.gatherSpecPath": {
+					"default": "",
+					"description": "This setting specifies a folder that contains additional or replacement spec files used for analysis.",
+					"scope": "resource",
+					"type": "string"
+				},
+				"gather.gatherToScript": {
+					"default": false,
+					"description": "Gather code to a python script rather than a notebook.",
+					"scope": "resource",
+					"type": "boolean"
+				}
+			},
+			"title": "Gather",
+			"type": "object"
+		},
+		"menus": {
+			"commandPalette": [
+				{
+					"category": "Gather",
+					"command": "gather.gatherCodeNativeNotebook",
+					"title": "Gather code",
+					"when": "false"
+				},
+				{
+					"category": "Gather",
+					"command": "gather.smartSelect",
+					"title": "Smart Select",
+					"when": "false"
+				}
+			],
+			"interactive/cell/title": [
+				{
+					"category": "Gather",
+					"command": "gather.gatherCodeNativeNotebook",
+					"group": "inline@2",
+					"when": "notebookType == interactive && notebookCellType == code"
+				}
+			],
+			"notebook/cell/title": [
+				{
+					"category": "Gather",
+					"command": "gather.gatherCodeNativeNotebook",
+					"group": "inline/cell@2",
+					"when": "notebookType == jupyter-notebook && notebookCellType == code"
+				},
+				{
+					"category": "Gather",
+					"command": "gather.smartSelect",
+					"group": "inline/cell@2",
+					"when": "notebookType == jupyter-notebookxxx && notebookCellType == code"
+				}
+			]
+		}
+	},
+	"dependencies": {
+		"@msrvida/python-program-analysis": "0.5.4",
+		"fs-extra": "11.1.1",
+		"uuid": "3.4.0"
+	},
+	"description": "Adds gather functionality in the Python language to the Jupyter Extension",
+	"devDependencies": {
+		"@types/fs-extra": "11.0.1",
+		"@types/glob": "8.1.0",
+		"@types/node": "20.4.0",
+		"@types/uuid": "3.4.10",
+		"glob": "10.3.1",
+		"ts-loader": "9.4.4",
+		"typemoq": "2.1.0"
+	},
+	"displayName": "Gather",
+	"enabledApiProposals": [
+		"notebookCellExecutionState"
+	],
+	"extensionDependencies": [
+		"ms-toolsai.jupyter"
+	],
+	"icon": "icon.png",
+	"main": "./out/extension.js",
+	"name": "gather",
+	"preview": true,
+	"scripts": {
+		"build": "webpack --mode production",
+		"compile": "tsc -watch -p ./",
+		"download-api": "vscode-dts dev",
+		"npm-auth": "vsts-npm-auth -config .npmrc",
+		"postdownload-api": "vscode-dts main",
+		"vsix": "npm run webpack && vsce package",
+		"webpack": "webpack --mode development",
+		"webpack-watch": "webpack --mode development --watch"
+	}
 }
