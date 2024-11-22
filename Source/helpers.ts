@@ -15,6 +15,7 @@ export async function pathExists(
 	fileType?: FileType,
 ): Promise<boolean> {
 	let stat: FileStat;
+
 	try {
 		// Note that we are using stat() rather than lstat().  This
 		// means that any symlinks are getting resolved.
@@ -22,6 +23,7 @@ export async function pathExists(
 		stat = await workspace.fs.stat(uri);
 	} catch (err) {
 		error(`stat() failed for "${filename}"`, err);
+
 		return false;
 	}
 
@@ -61,6 +63,7 @@ export function convertVscToGatherCell(
 	cell: vscode.NotebookCell,
 ): ppa.Cell | undefined {
 	let code = "";
+
 	try {
 		if (cell.document) {
 			code = cell.document.getText();
@@ -81,6 +84,7 @@ export function convertVscToGatherCell(
 		hasError: cell.executionSummary?.success === false,
 		// tslint:disable-next-line: no-any
 	} as any;
+
 	return result;
 }
 
@@ -97,6 +101,7 @@ export function splitLines(
 	},
 ): string[] {
 	let lines = text.split(/\r?\n/g);
+
 	if (splitOptions && splitOptions.trim) {
 		lines = lines.map((line) => line.trim());
 	}
@@ -110,6 +115,7 @@ export function countCells(lines: string[]): number {
 	let cellCount = 0;
 
 	const settings = vscode.workspace.getConfiguration();
+
 	const defaultCellMarker: string = settings
 		? (settings.get(Constants.defaultCellMarkerSetting) as string)
 		: Constants.DefaultCodeCellMarker;
@@ -119,17 +125,20 @@ export function countCells(lines: string[]): number {
 			cellCount++;
 		}
 	});
+
 	return cellCount;
 }
 
 export function arePathsSame(path1: string, path2: string): boolean {
 	path1 = normCase(path1);
 	path2 = normCase(path2);
+
 	return path1 === path2;
 }
 
 function normCase(filename: string): string {
 	filename = path.normalize(filename);
+
 	return getOSType() === OSType.Windows ? filename.toUpperCase() : filename;
 }
 
@@ -147,9 +156,11 @@ function getOSType(platform: string = process.platform): OSType {
 
 export function generateCellsFromString(script: string): SimpleCell[] {
 	const cells: SimpleCell[] = [];
+
 	const lines = splitLines(script, { trim: false, removeEmptyEntries: true });
 
 	const settings = vscode.workspace.getConfiguration();
+
 	const defaultCellMarker: string = settings
 		? (settings.get(Constants.defaultCellMarkerSetting) as string)
 		: Constants.DefaultCodeCellMarker;
@@ -166,6 +177,7 @@ export function generateCellsFromString(script: string): SimpleCell[] {
 					});
 					cellCode = [];
 					index = j - 1;
+
 					break;
 				} else {
 					cellCode.push(lines[j]);

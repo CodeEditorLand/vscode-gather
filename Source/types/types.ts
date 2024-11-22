@@ -3,20 +3,31 @@ import * as vscode from "vscode";
 
 export namespace Constants {
 	const folderName = path.basename(__dirname);
+
 	export const EXTENSION_ROOT_DIR =
 		folderName === "client"
 			? path.join(__dirname, "..", "..")
 			: path.join(__dirname, "..", "..", "..", "..");
+
 	export const GatherExtension = "ms-python.gather";
+
 	export const DefaultCodeCellMarker = "# %%";
+
 	export const gatherNativeNotebookCommand =
 		"gather.gatherCodeNativeNotebook";
+
 	export const smartSelectCommand = "gather.smartSelect";
+
 	export const gatherToScriptSetting = "gather.gatherToScript";
+
 	export const gatherSpecPathSetting = "gather.gatherSpecPath";
+
 	export const PYTHON_LANGUAGE = "python";
+
 	export const defaultCellMarkerSetting = "jupyter.defaultCellMarker";
+
 	export const hasCellsSelected = "hasCellsSelected";
+
 	export const setContextCommand = "setContext";
 }
 

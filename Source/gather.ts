@@ -54,6 +54,7 @@ export class GatherProvider implements IGatherProvider {
 		try {
 			if (vscCell) {
 				let code = "";
+
 				try {
 					if (vscCell.document) {
 						code = vscCell.document.getText();
@@ -92,6 +93,7 @@ export class GatherProvider implements IGatherProvider {
 				localize.Common.loggingError() + vscCell.document.getText(),
 			);
 			console.error(e);
+
 			throw e;
 		}
 	}
@@ -113,6 +115,7 @@ export class GatherProvider implements IGatherProvider {
 			});
 			window.showErrorMessage(localize.Common.resetLog());
 			console.error(e);
+
 			throw e;
 		}
 	}
@@ -131,15 +134,19 @@ export class GatherProvider implements IGatherProvider {
 			},
 			async () => {
 				this.gatherTimer = new StopWatch();
+
 				const gatheredCode = this.gatherCodeInternal(vscCell);
+
 				if (gatheredCode.length === 0) {
 					window.showInformationMessage(
 						localize.Common.analysisEmpty(),
 					);
+
 					return;
 				}
 
 				const settings = workspace.getConfiguration();
+
 				const gatherToScript: boolean =
 					(settings.get(
 						Constants.gatherToScriptSetting,
@@ -174,9 +181,11 @@ export class GatherProvider implements IGatherProvider {
 
 	private gatherCodeInternal(vscCell: NotebookCell): string {
 		const settings = workspace.getConfiguration();
+
 		const defaultCellMarker: string = settings
 			? (settings.get(Constants.defaultCellMarkerSetting) as string)
 			: Constants.DefaultCodeCellMarker;
+
 		const newline = "\n";
 
 		try {
@@ -184,12 +193,15 @@ export class GatherProvider implements IGatherProvider {
 			// if (vscCell.language === Constants.PYTHON_LANGUAGE) {
 			if (!this._executionSlicer) {
 				window.showErrorMessage(localize.Common.notAvailable());
+
 				return "";
 			}
 
 			const gatherCell = convertVscToGatherCell(vscCell);
+
 			if (!gatherCell) {
 				window.showErrorMessage(localize.Common.errorTranslatingCell());
+
 				return "";
 			}
 
@@ -210,6 +222,7 @@ export class GatherProvider implements IGatherProvider {
 							"\n" +
 							localize.Common.PPAError(),
 					);
+
 					return "";
 				}
 
@@ -219,6 +232,7 @@ export class GatherProvider implements IGatherProvider {
 			sendTelemetryEvent(Telemetry.GatherException, undefined, {
 				exceptionType: "gather",
 			});
+
 			return (
 				defaultCellMarker +
 				newline +
@@ -231,6 +245,7 @@ export class GatherProvider implements IGatherProvider {
 			sendTelemetryEvent(Telemetry.GatherException, undefined, {
 				exceptionType: "gather",
 			});
+
 			return (
 				defaultCellMarker +
 				newline +
@@ -277,7 +292,9 @@ export class GatherProvider implements IGatherProvider {
 			try {
 				if (ppa) {
 					const settings = workspace.getConfiguration();
+
 					let additionalSpecPath: string | undefined;
+
 					if (settings) {
 						additionalSpecPath = settings.get(
 							Constants.gatherSpecPathSetting,
@@ -290,6 +307,7 @@ export class GatherProvider implements IGatherProvider {
 						(await pathExists(additionalSpecPath))
 					) {
 						const specsPaths = fs.readdirSync(additionalSpecPath);
+
 						let specs: string[] = [];
 						specsPaths.forEach((fileName) =>
 							specs.push(
@@ -327,6 +345,7 @@ export class GatherProvider implements IGatherProvider {
 					localize.Common.couldNotActivateTools,
 					util.format(ex),
 				);
+
 				throw ex;
 			}
 		}
@@ -334,6 +353,7 @@ export class GatherProvider implements IGatherProvider {
 
 	private async showFile(gatheredCode: string, filename: string) {
 		const settings = workspace.getConfiguration();
+
 		const defaultCellMarker: string = settings
 			? (settings.get(Constants.defaultCellMarkerSetting) as string)
 			: Constants.DefaultCodeCellMarker;
@@ -351,12 +371,15 @@ export class GatherProvider implements IGatherProvider {
 
 		// Don't want to open the gathered code on top of the interactive window
 		let viewColumn: ViewColumn | undefined;
+
 		const fileNameMatch = window.visibleTextEditors.filter((textEditor) =>
 			arePathsSame(textEditor.document.fileName, filename),
 		);
+
 		const definedVisibleEditors = window.visibleTextEditors.filter(
 			(textEditor) => textEditor.viewColumn !== undefined,
 		);
+
 		if (window.visibleTextEditors.length > 0 && fileNameMatch.length > 0) {
 			// Original file is visible
 			viewColumn = fileNameMatch[0].viewColumn;
@@ -419,18 +442,21 @@ export class GatherProvider implements IGatherProvider {
 			async () => {
 				try {
 					const gatheredCode = this.gatherCodeInternal(vscCell);
+
 					if (gatheredCode.length === 0) {
 						window.showErrorMessage(
 							localize.Common.gatherError() +
 								"\n" +
 								localize.Common.PPAError(),
 						);
+
 						return;
 					}
 					if (gatheredCode.includes(localize.Common.gatherError())) {
 						window.showErrorMessage(
 							localize.Common.couldNotAnalyze(),
 						);
+
 						return;
 					}
 					let cells = generateCellsFromString(gatheredCode);
@@ -453,6 +479,7 @@ export class GatherProvider implements IGatherProvider {
 										return notebookCell;
 									}
 								});
+
 							if (match) {
 								ranges.push(
 									new NotebookRange(

@@ -4,6 +4,7 @@ import { workspace } from "vscode";
 import { Telemetry } from "./types/types";
 
 const AppinsightsKey = "AIF-d9b70cd4-b9f9-4d70-929b-a071c400b217";
+
 const sharedProperties: Record<string, any> = {};
 
 export function sendTelemetryEvent<
@@ -19,13 +20,16 @@ export function sendTelemetryEvent<
 		return;
 	}
 	const reporter = getTelemetryReporter();
+
 	const measures =
 		typeof durationMs === "number"
 			? { duration: durationMs }
 			: durationMs
 				? durationMs
 				: undefined;
+
 	let customProperties: Record<string, string> = {};
+
 	let eventNameSent = eventName as string;
 
 	if (ex) {
@@ -111,6 +115,7 @@ function getTelemetryReporter(): TelemetryReporter {
 
 	const reporter = require("@vscode/extension-telemetry")
 		.default as typeof TelemetryReporter;
+
 	return (telemetryReporter = new reporter(AppinsightsKey));
 }
 
@@ -124,6 +129,7 @@ function isTelemetrySupported(): boolean {
 		const vsc = require("vscode");
 		// tslint:disable-next-line:no-require-imports
 		const reporter = require("@vscode/extension-telemetry");
+
 		return vsc !== undefined && reporter !== undefined;
 	} catch {
 		return false;
@@ -138,5 +144,6 @@ function isTelemetryDisabled(): boolean {
 	const settings = workspace
 		.getConfiguration("telemetry")
 		.inspect<boolean>("enableTelemetry")!;
+
 	return settings.globalValue === false ? true : false;
 }

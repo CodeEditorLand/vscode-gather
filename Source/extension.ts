@@ -26,6 +26,7 @@ export async function activate() {
 			Constants.gatherNativeNotebookCommand,
 			async (cell: NotebookCell) => {
 				let provider = gatherProviderMap.get(cell.notebook.uri);
+
 				let toScript = cell.notebook.notebookType === "interactive";
 
 				if (provider) {
@@ -103,6 +104,7 @@ export async function activate() {
 					e.cell.document.languageId === Constants.PYTHON_LANGUAGE
 				) {
 					let provider = gatherProviderMap.get(e.cell.notebook.uri);
+
 					if (!provider) {
 						provider = new gather.GatherProvider(
 							Constants.PYTHON_LANGUAGE,
