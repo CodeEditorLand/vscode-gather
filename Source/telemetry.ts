@@ -19,6 +19,7 @@ export function sendTelemetryEvent<
 	if (isTestExecution() || !isTelemetrySupported() || isTelemetryDisabled()) {
 		return;
 	}
+
 	const reporter = getTelemetryReporter();
 
 	const measures =
@@ -39,10 +40,12 @@ export function sendTelemetryEvent<
 		// As we have errors for each event, those properties are treated as new data items.
 		// Hence they need to be classified as part of the GDPR process, and thats unnecessary and onerous.
 		eventNameSent = "ERROR";
+
 		customProperties = {
 			originalEventName: eventName as string,
 			stackTrace: ex.stack || "",
 		};
+
 		reporter.sendTelemetryErrorEvent(
 			eventNameSent,
 			customProperties,
@@ -51,10 +54,12 @@ export function sendTelemetryEvent<
 	} else {
 		if (properties) {
 			const data = properties as any;
+
 			Object.getOwnPropertyNames(data).forEach((prop) => {
 				if (data[prop] === undefined || data[prop] === null) {
 					return;
 				}
+
 				try {
 					// If there are any errors in serializing one property, ignore that and move on.
 					// Else nothing will be sent.
@@ -90,8 +95,11 @@ interface IEventNamePropertyMapping {
 	};
 	[Telemetry.GatherStats]: {
 		linesSubmitted: number;
+
 		cellsSubmitted: number;
+
 		linesGathered: number;
+
 		cellsGathered: number;
 	};
 	[Telemetry.GatherException]: {

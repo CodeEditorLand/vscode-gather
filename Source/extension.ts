@@ -20,6 +20,7 @@ const gatherProviderMap = new WeakMap<Uri, IGatherProvider>();
 export async function activate() {
 	try {
 		const gather = require("./gather") as typeof import("./gather");
+
 		sendTelemetryEvent(Telemetry.GatherIsInstalled);
 		// Register command to be executed by native notebooks.
 		commands.registerCommand(
@@ -42,7 +43,9 @@ export async function activate() {
 					}
 
 					provider = new gather.GatherProvider(language);
+
 					gatherProviderMap.set(cell.notebook.uri, provider);
+
 					provider.gatherWithoutKernel(cell, toScript);
 				}
 			},
@@ -67,7 +70,9 @@ export async function activate() {
 					}
 
 					provider = new gather.GatherProvider(language);
+
 					gatherProviderMap.set(cell.notebook.uri, provider);
+
 					provider.smartSelectWithoutKernel(cell);
 				}
 			},
@@ -109,17 +114,21 @@ export async function activate() {
 						provider = new gather.GatherProvider(
 							Constants.PYTHON_LANGUAGE,
 						);
+
 						gatherProviderMap.set(e.cell.notebook.uri, provider);
 					}
+
 					provider.logExecution(e.cell);
 				}
 			},
 		);
 	} catch (e) {
 		window.showErrorMessage(localize.Common.activateError(), e as string);
+
 		sendTelemetryEvent(Telemetry.GatherException, undefined, {
 			exceptionType: "activate",
 		});
+
 		console.error(e);
 	}
 }

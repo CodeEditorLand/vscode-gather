@@ -20,6 +20,7 @@ export async function pathExists(
 		// Note that we are using stat() rather than lstat().  This
 		// means that any symlinks are getting resolved.
 		const uri = Uri.file(filename);
+
 		stat = await workspace.fs.stat(uri);
 	} catch (err) {
 		error(`stat() failed for "${filename}"`, err);
@@ -30,18 +31,22 @@ export async function pathExists(
 	if (fileType === undefined) {
 		return true;
 	}
+
 	if (fileType === FileType.Unknown) {
 		// FileType.Unknown == 0, hence do not use bitwise operations.
 		return stat.type === FileType.Unknown;
 	}
+
 	return (stat.type & fileType) === fileType;
 }
 
 export class StopWatch {
 	private started = new Date().getTime();
+
 	public get elapsedTime() {
 		return new Date().getTime() - this.started;
 	}
+
 	public reset() {
 		this.started = new Date().getTime();
 	}
@@ -105,9 +110,11 @@ export function splitLines(
 	if (splitOptions && splitOptions.trim) {
 		lines = lines.map((line) => line.trim());
 	}
+
 	if (splitOptions && splitOptions.removeEmptyEntries) {
 		lines = lines.filter((line) => line.length > 0);
 	}
+
 	return lines;
 }
 
@@ -131,6 +138,7 @@ export function countCells(lines: string[]): number {
 
 export function arePathsSame(path1: string, path2: string): boolean {
 	path1 = normCase(path1);
+
 	path2 = normCase(path2);
 
 	return path1 === path2;
@@ -175,7 +183,9 @@ export function generateCellsFromString(script: string): SimpleCell[] {
 						source: cellCode,
 						type: "code",
 					});
+
 					cellCode = [];
+
 					index = j - 1;
 
 					break;

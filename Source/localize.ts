@@ -140,6 +140,7 @@ function getString(key: string, defValue?: string) {
 	if (loadedCollection && loadedCollection.hasOwnProperty(key)) {
 		collection = loadedCollection;
 	}
+
 	let result = collection[key];
 
 	if (!result && defValue) {
@@ -147,6 +148,7 @@ function getString(key: string, defValue?: string) {
 		// if for some reason somebody broke the functional test.
 		result = defValue;
 	}
+
 	askedForCollection[key] = result;
 
 	return result;
@@ -171,6 +173,7 @@ function load() {
 
 	if (fs.existsSync(nlsFile)) {
 		const contents = fs.readFileSync(nlsFile, "utf8");
+
 		loadedCollection = JSON.parse(contents);
 	} else {
 		// If there isn't one, at least remember that we looked so we don't try to load a second time

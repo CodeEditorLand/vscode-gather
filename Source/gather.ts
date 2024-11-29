@@ -32,10 +32,15 @@ import { Constants, IGatherProvider, Telemetry } from "./types/types";
 
 export class GatherProvider implements IGatherProvider {
 	private _executionSlicer: ppa.ExecutionLogSlicer<ppa.Cell> | undefined;
+
 	private dataflowAnalyzer: ppa.DataflowAnalyzer | undefined;
+
 	private initPromise: Promise<void>;
+
 	private gatherTimer: StopWatch | undefined;
+
 	private linesSubmitted: number = 0;
+
 	private cellsSubmitted: number = 0;
 
 	constructor(private readonly language: string) {
@@ -64,12 +69,15 @@ export class GatherProvider implements IGatherProvider {
 
 					// find lines in code
 					const lineCount = code.split("\n").length;
+
 					this.linesSubmitted += lineCount;
 				} catch {
 					this.linesSubmitted = -1;
 				}
+
 				this.cellsSubmitted += 1;
 			}
+
 			await this.initPromise;
 
 			// If the execution count is 1, there was a kernel reset, so reset the log
@@ -89,9 +97,11 @@ export class GatherProvider implements IGatherProvider {
 			sendTelemetryEvent(Telemetry.GatherException, undefined, {
 				exceptionType: "log",
 			});
+
 			window.showErrorMessage(
 				localize.Common.loggingError() + vscCell.document.getText(),
 			);
+
 			console.error(e);
 
 			throw e;
@@ -101,7 +111,9 @@ export class GatherProvider implements IGatherProvider {
 	public async resetLog(): Promise<void> {
 		try {
 			this.linesSubmitted = 0;
+
 			this.cellsSubmitted = 0;
+
 			await this.initPromise;
 
 			if (this.language === Constants.PYTHON_LANGUAGE) {
@@ -113,7 +125,9 @@ export class GatherProvider implements IGatherProvider {
 			sendTelemetryEvent(Telemetry.GatherException, undefined, {
 				exceptionType: "reset",
 			});
+
 			window.showErrorMessage(localize.Common.resetLog());
+
 			console.error(e);
 
 			throw e;
@@ -154,7 +168,9 @@ export class GatherProvider implements IGatherProvider {
 
 				if (gatherToScript) {
 					const filename = vscCell.notebook?.uri.toString() || "";
+
 					await this.showFile(gatheredCode, filename);
+
 					sendTelemetryEvent(
 						Telemetry.GatherCompleted,
 						this.gatherTimer?.elapsedTime,
@@ -162,6 +178,7 @@ export class GatherProvider implements IGatherProvider {
 					);
 				} else {
 					await this.showNotebook(gatheredCode);
+
 					sendTelemetryEvent(
 						Telemetry.GatherCompleted,
 						this.gatherTimer?.elapsedTime,
@@ -242,6 +259,7 @@ export class GatherProvider implements IGatherProvider {
 			);
 		} catch (e) {
 			console.error(e);
+
 			sendTelemetryEvent(Telemetry.GatherException, undefined, {
 				exceptionType: "gather",
 			});
@@ -266,10 +284,13 @@ export class GatherProvider implements IGatherProvider {
 			// Log all the cells up to vcsCell
 			for (
 				let index = 0;
+
 				index < vscCell.notebook.getCells().length;
+
 				index++
 			) {
 				const cell = vscCell.notebook.cellAt(index);
+
 				await this.logExecution(cell);
 
 				if (cell.index === vscCell.index) {
@@ -309,6 +330,7 @@ export class GatherProvider implements IGatherProvider {
 						const specsPaths = fs.readdirSync(additionalSpecPath);
 
 						let specs: string[] = [];
+
 						specsPaths.forEach((fileName) =>
 							specs.push(
 								fs
@@ -321,6 +343,7 @@ export class GatherProvider implements IGatherProvider {
 									.toString(),
 							),
 						);
+
 						ppa.addSpecFolder(specs);
 					} else {
 						console.log(
@@ -333,6 +356,7 @@ export class GatherProvider implements IGatherProvider {
 					// Only continue to initialize gather if we were successful in finding SOME specs.
 					if (ppa.getSpecs()) {
 						this.dataflowAnalyzer = new ppa.DataflowAnalyzer();
+
 						this._executionSlicer = new ppa.ExecutionLogSlicer(
 							this.dataflowAnalyzer,
 						);
@@ -361,6 +385,7 @@ export class GatherProvider implements IGatherProvider {
 		if (gatheredCode) {
 			// Remove all cell definitions and newlines
 			const re = new RegExp(`^(${defaultCellMarker}.*|\\s*)\n`, "gm");
+
 			gatheredCode = gatheredCode.replace(re, "");
 		}
 
@@ -398,6 +423,7 @@ export class GatherProvider implements IGatherProvider {
 			language: Constants.PYTHON_LANGUAGE,
 			content: annotatedScript,
 		});
+
 		await window.showTextDocument(textDoc, viewColumn, true);
 	}
 
@@ -421,12 +447,14 @@ export class GatherProvider implements IGatherProvider {
 				"Markdown",
 			),
 		];
+
 		finalCells.push(...nbCells);
 
 		const doc = await workspace.openNotebookDocument(
 			"jupyter-notebook",
 			new NotebookData(finalCells),
 		);
+
 		await window.showNotebookDocument(doc, {
 			viewColumn: 1,
 			preserveFocus: true,
@@ -452,6 +480,7 @@ export class GatherProvider implements IGatherProvider {
 
 						return;
 					}
+
 					if (gatheredCode.includes(localize.Common.gatherError())) {
 						window.showErrorMessage(
 							localize.Common.couldNotAnalyze(),
@@ -459,6 +488,7 @@ export class GatherProvider implements IGatherProvider {
 
 						return;
 					}
+
 					let cells = generateCellsFromString(gatheredCode);
 
 					if (window.activeNotebookEditor) {
@@ -501,6 +531,7 @@ export class GatherProvider implements IGatherProvider {
 					return;
 				} catch (e) {
 					window.showErrorMessage(localize.Common.gatherError());
+
 					console.error(e);
 				}
 			},
@@ -516,10 +547,13 @@ export class GatherProvider implements IGatherProvider {
 			// Log all the cells up to vcsCell
 			for (
 				let index = 0;
+
 				index < vscCell.notebook.getCells().length;
+
 				index++
 			) {
 				const cell = vscCell.notebook.cellAt(index);
+
 				await this.logExecution(cell);
 
 				if (cell.index === vscCell.index) {
