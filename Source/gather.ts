@@ -284,9 +284,7 @@ export class GatherProvider implements IGatherProvider {
 			// Log all the cells up to vcsCell
 			for (
 				let index = 0;
-
 				index < vscCell.notebook.getCells().length;
-
 				index++
 			) {
 				const cell = vscCell.notebook.cellAt(index);
@@ -547,9 +545,7 @@ export class GatherProvider implements IGatherProvider {
 			// Log all the cells up to vcsCell
 			for (
 				let index = 0;
-
 				index < vscCell.notebook.getCells().length;
-
 				index++
 			) {
 				const cell = vscCell.notebook.cellAt(index);
